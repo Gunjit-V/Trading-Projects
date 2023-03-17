@@ -2,7 +2,7 @@ import pandas as pd
 import datetime as dt
 
 # Read data from CSV file
-# The data should contain columns ['Date', 'Open', 'High', 'Close']
+# The data should contain columns ['Date', 'Open', 'High', 'Low', 'Close']
 
 data = pd.read_csv(r'candleData.csv')
 data.set_index('Date')
