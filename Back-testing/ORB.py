@@ -33,7 +33,7 @@ while i < n:
     curr_time = data['Date'].iloc[i].time()
     curr_date = data['Date'].iloc[i].date()
     # Range
-    if curr_time < rangeEnd and curr_time > rangeStart:
+    if curr_time < rangeEnd and curr_time >= rangeStart:
         high_price = max(high_price, data['H'].iloc[i])
         low_price = min(low_price, data['L'].iloc[i])
         #print(curr_time, high_price, low_price)
