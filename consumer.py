@@ -1,8 +1,10 @@
 import pika
+import json
 
 
 def on_message_recieved(channel, method, properties, body):
     print(body)
+    channel.basic_ack(delivery_tag=method.delivery_tag)
 
 
 connection_parameters = pika.ConnectionParameters('localhost')

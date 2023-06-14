@@ -36,20 +36,9 @@ token_list = [{"exchangeType": 2, "tokens": ["35003"]}]
 sws = SmartWebSocketV2(AUTH_TOKEN, API_KEY, CLIENT_CODE, FEED_TOKEN)
 
 
-def on_message_recieved(channel, method, properties, body):
-    print(body)
-    channel.basic_ack(delivery_tag=method.delivery_tag)
-
-
 def push_to_queue(data):
     message = str(data)
     channel.basic_publish(exchange='', routing_key='ws_data', body=message)
-
-
-def fetch_from_queue():
-    channel.basic_qos(prefetch_count=1)
-    channel.basic_consume(
-        queue='ws_data', on_message_callback=on_message_recieved)
 
 
 def on_data(wsapp, message):
@@ -79,3 +68,8 @@ sws.on_error = on_error
 sws.on_close = on_close
 
 threading.Thread(target=sws.connect).start()
+print("Pushing data to queue")
+
+while (dt.datetime.now().time() < dt.time(15, 30, 0)):
+    time.sleep(1)
+sws.close_connection()
